@@ -11,6 +11,7 @@
 </head>
 <body>
   <h1>Shop</h1>
+  <p><small>Static copy of the shop for Zof runs.</small></p>
   <p id="state">Loading the shop's status…</p>
   <script>
     // A static copy of the shop's storefront: it reads the status the api would serve
@@ -18,6 +19,7 @@
       .then(r => r.json())
       .then(s => {
         const state = !s.accepting ? 'Not taking orders right now.' : s.nearlyFull ? 'Taking orders, but nearly full.' : 'Taking orders.'
+        document.title = s.accepting ? 'Shop' : 'Shop (closed)'
         document.getElementById('state').textContent = `Open orders: ${s.openOrders}. ${state}`
       })
       .catch(() => { document.getElementById('state').textContent = 'The shop is unavailable.' })
