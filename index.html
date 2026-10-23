@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 3rem auto; padding: 0 1rem; color: #111; }
+    #state { font-size: 1.25rem; }
+  </style>
+</head>
+<body>
+  <h1>Shop</h1>
+  <p id="state">Loading the shop's status…</p>
+  <script>
+    // A static copy of the shop's storefront: it reads the status the api would serve
+    fetch('/status.json')
+      .then(r => r.json())
+      .then(s => {
+        const state = !s.accepting ? 'Not taking orders right now.' : s.nearlyFull ? 'Taking orders, but nearly full.' : 'Taking orders.'
+        document.getElementById('state').textContent = `Open orders: ${s.openOrders}. ${state}`
+      })
+      .catch(() => { document.getElementById('state').textContent = 'The shop is unavailable.' })
+  </script>
+</body>
+</html>

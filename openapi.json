@@ -1,0 +1,23 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Shop (static)", "version": "1.0.0", "description": "A static copy of the shop app on GitHub Pages: GET routes only." },
+  "servers": [{ "url": "https://test-zof-org.github.io" }],
+  "paths": {
+    "/status.json": {
+      "get": {
+        "summary": "The shop's status",
+        "responses": {
+          "200": {
+            "description": "Open orders and whether the shop takes more",
+            "content": { "application/json": { "schema": {
+              "type": "object",
+              "required": ["openOrders", "accepting", "nearlyFull"],
+              "properties": { "openOrders": { "type": "integer", "minimum": 0 }, "accepting": { "type": "boolean" }, "nearlyFull": { "type": "boolean" } }
+            } } }
+          }
+        }
+      }
+    },
+    "/health/": { "get": { "summary": "Liveness", "responses": { "200": { "description": "ok" } } } }
+  }
+}
